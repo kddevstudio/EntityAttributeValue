@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Web.Areas.Admin.ViewModels;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -29,12 +30,25 @@ namespace Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EntityDefinition EntityDefinition = db.EntityDefinitions.Find(id);
-            if (EntityDefinition == null)
+
+            var entityDefinition = db.EntityDefinitions.Include(ed => ed.Attributes).FirstOrDefault(ed => ed.EntityDefinitionId == id);
+
+            if (entityDefinition == null)
             {
                 return HttpNotFound();
             }
-            return View(EntityDefinition);
+
+            ViewBag.Attributes = db.Attributes.AsNoTracking().Where(a => a.EntityDefinitionId == id).ToList();
+
+            var entityDefinitionViewModel = new EntityDefinitionViewModel();
+
+            entityDefinitionViewModel.Name = entityDefinition.Name;
+            entityDefinitionViewModel.AttributeList = new AttributeListViewModel();
+            entityDefinitionViewModel.AttributeList.Attributes = entityDefinition.Attributes;
+            entityDefinitionViewModel.AttributeList.ShowCommandLinks = false;
+            entityDefinitionViewModel.AttributeList.ShowDefinitionName = false;
+
+            return View(entityDefinitionViewModel);
         }
 
         // GET: EntityDefinitions/Create
@@ -69,12 +83,25 @@ namespace Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EntityDefinition EntityDefinition = db.EntityDefinitions.Find(id);
-            if (EntityDefinition == null)
+
+            var entityDefinition = db.EntityDefinitions.Include(ed => ed.Attributes).FirstOrDefault(ed => ed.EntityDefinitionId == id);
+
+            if (entityDefinition == null)
             {
                 return HttpNotFound();
             }
-            return View(EntityDefinition);
+
+            ViewBag.Attributes = db.Attributes.AsNoTracking().Where(a => a.EntityDefinitionId == id).ToList();
+
+            var entityDefinitionViewModel = new EntityDefinitionViewModel();
+
+            entityDefinitionViewModel.Name = entityDefinition.Name;
+            entityDefinitionViewModel.AttributeList = new AttributeListViewModel();
+            entityDefinitionViewModel.AttributeList.Attributes = entityDefinition.Attributes;
+            entityDefinitionViewModel.AttributeList.ShowCommandLinks = true;
+            entityDefinitionViewModel.AttributeList.ShowDefinitionName = false;
+
+            return View(entityDefinitionViewModel);
         }
 
         // POST: EntityDefinitions/Edit/5

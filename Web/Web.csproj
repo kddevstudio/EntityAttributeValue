@@ -134,9 +134,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AttributeListViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\EntityDefinitionViewModel.cs" />
     <Compile Include="WebEAVContext.cs" />
     <Compile Include="Areas\Admin\Controllers\AttributesController.cs" />
-    <Compile Include="Controllers\EntityDefinitionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\EntityDefinitionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -153,9 +154,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AttributeList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -180,19 +184,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Attributes\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Attributes\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Attributes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Attributes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Attributes\Index.cshtml" />
-    <Content Include="Views\Entities\Create.cshtml" />
-    <Content Include="Views\Entities\Delete.cshtml" />
-    <Content Include="Views\Entities\Details.cshtml" />
-    <Content Include="Views\Entities\Edit.cshtml" />
-    <Content Include="Views\Entities\Index.cshtml" />
     <Content Include="Areas\Admin\Views\EntityDefinitions\Create.cshtml" />
     <Content Include="Areas\Admin\Views\EntityDefinitions\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\EntityDefinitions\Details.cshtml" />
@@ -201,7 +197,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

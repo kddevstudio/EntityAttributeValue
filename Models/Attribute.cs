@@ -9,6 +9,8 @@ namespace Models
     {
         public int AttributeId { get; set; }
 
+        [Required]
+        [Display(Name = "Field Name")]
         public string Name { get; set; }
 
         [Required]

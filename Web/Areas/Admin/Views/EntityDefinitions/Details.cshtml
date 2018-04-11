@@ -1,4 +1,6 @@
-﻿@model Models.EntityDefinition
+﻿@using Web.Areas.Admin.ViewModels
+
+@model EntityDefinitionViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -7,18 +9,14 @@
 <h2>Details</h2>
 
 <div>
-    <h4>EntityDefinition</h4>
+    <h4>EntityDefinition: @Html.DisplayFor(model => model.Name)</h4>
+
+    Fields
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    
+    @Html.Partial("_AttributeList", Model.AttributeList)
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.EntityDefinitionId }) |

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Web.Areas.Admin.ViewModels;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -19,9 +20,14 @@ namespace Web.Areas.Admin.Controllers
         // GET: Attributes
         public async Task<ActionResult> Index()
         {
-            var Attributes = await db.Attributes.Include(f => f.EntityDefinition).ToListAsync();
+            var attributeListViewModel = new AttributeListViewModel();
+
+            attributeListViewModel.ShowCommandLinks = true;
+            attributeListViewModel.ShowDefinitionName = true;
+
+            attributeListViewModel.Attributes = await db.Attributes.Include(f => f.EntityDefinition).ToListAsync();
             
-            return View(Attributes);
+            return View(attributeListViewModel);
         }
 
         // GET: Attributes/Details/5
@@ -88,8 +94,18 @@ namespace Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(Attribute).State = EntityState.Modified;
+                var attribute = db.Attributes.Find(Attribute.AttributeId);
+
+                if (attribute == null)
+                {
+                    return HttpNotFound();
+                }
+
+                attribute.DataType = Attribute.DataType;
+                attribute.Name = Attribute.Name;
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(Attribute);
