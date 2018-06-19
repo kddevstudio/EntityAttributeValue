@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Models
 {
@@ -33,19 +28,23 @@ namespace Models
 
     }
 
-    public class ValuesConfiguration : EntityTypeConfiguration<Value>
+    public class ValuesConfiguration : IEntityTypeConfiguration<Value>
     {
         public ValuesConfiguration()
         {
-            HasKey(d => d.ValueId);
+        }
 
-            Property(d => d.ValueId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+        public void Configure(EntityTypeBuilder<Value> builder)
+        {
+            builder.HasKey(d => d.ValueId);
 
-            HasRequired(d => d.Attribute).WithMany().HasForeignKey(d => d.AttributeId).WillCascadeOnDelete(false);
+            builder.Property(d => d.ValueId).ValueGeneratedOnAdd();
 
-            Property(d => d.EntityId).IsRequired();
+            builder.HasOne(d => d.Attribute).WithMany().HasForeignKey(d => d.AttributeId).OnDelete(DeleteBehavior.Restrict);
 
-            HasRequired(d => d.Entity).WithMany(o => o.Values).HasForeignKey(d => d.EntityId).WillCascadeOnDelete(false);
+            builder.Property(d => d.EntityId).IsRequired();
+
+            builder.HasOne(d => d.Entity).WithMany(o => o.Values).HasForeignKey(d => d.EntityId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

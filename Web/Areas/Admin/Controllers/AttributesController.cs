@@ -37,7 +37,10 @@ namespace Web.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ViewBag.EntityDefinitions = db.EntityDefinitions.Select(ed => new { ed.EntityDefinitionId, ed.Name}).ToList();
             Attribute Attribute = db.Attributes.Find(id);
+
             if (Attribute == null)
             {
                 return HttpNotFound();

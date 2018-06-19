@@ -1,10 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models
 {
@@ -17,19 +13,17 @@ namespace Models
         public EntityDefinition EntityDefinition { get; set; }
 
         public List<Value> Values { get; set; }
-
-        public List<EntityRelationship> EntityRelationships { get; set; }
     }
 
-    public class EntityConfiguration : EntityTypeConfiguration<Entity>
+    public class EntityConfiguration : IEntityTypeConfiguration<Entity>
     {
-        public EntityConfiguration()
+        public void Configure(EntityTypeBuilder<Entity> builder)
         {
-            HasKey(o => o.EntityId);
+            builder.HasKey(o => o.EntityId);
 
-            Property(o => o.EntityId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            builder.Property(o => o.EntityId).ValueGeneratedOnAdd();
 
-            HasRequired(o => o.EntityDefinition).WithMany().HasForeignKey(o => o.EntityDefinitionId).WillCascadeOnDelete(false);
+            builder.HasOne(o => o.EntityDefinition).WithMany().HasForeignKey(o => o.EntityDefinitionId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 

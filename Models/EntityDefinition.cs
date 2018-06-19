@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models
 {
@@ -23,12 +19,12 @@ namespace Models
         public virtual IList<EntityDefinition> EntityDefinitionChildren { get; set; }
     }
 
-    public class EntityDefinitionConfiguration : EntityTypeConfiguration<EntityDefinition>
+    public class EntityDefinitionConfiguration : IEntityTypeConfiguration<EntityDefinition>
     {
-        public EntityDefinitionConfiguration()
+        public void Configure(EntityTypeBuilder<EntityDefinition> builder)
         {
-            HasKey(t => t.EntityDefinitionId);
-            Property(g => g.EntityDefinitionId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            builder.HasKey(t => t.EntityDefinitionId);
+            builder.Property(g => g.EntityDefinitionId).ValueGeneratedOnAdd();
         }
     }
 }

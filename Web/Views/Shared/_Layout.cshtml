@@ -34,8 +34,24 @@
         </footer>
     </div>
 
-    
-    
-    @RenderSection("scripts", required: false)
+    @{
+        var controllerName = Request.RequestContext.RouteData.Values["controller"].ToString();
+        var actionName = Request.RequestContext.RouteData.Values["action"].ToString();
+
+        // Find any scripts that match the route
+        if (string.IsNullOrEmpty(controllerName) || string.IsNullOrEmpty(actionName))
+        {
+
+        }
+
+        var scriptUrl = Path.Combine($"/scripts/controllers/{controllerName}/{actionName}.js");
+        var fileSystemPath = Server.MapPath(scriptUrl);
+
+        if (File.Exists(fileSystemPath))
+        {
+            Response.Write($"<script src=\"{scriptUrl}\"></script>");
+        }
+    }
+
 </body>
 </html>

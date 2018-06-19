@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
 
 namespace Models
 {
@@ -17,23 +17,31 @@ namespace Models
         [Range(1, 16)]
         public DataType DataType { get; set; }
 
+        /// <summary>
+        /// The EntityDefinitionId that corresponds to this items values
+        /// </summary>
+        public int? LookupEntityDefinitionId { get; set; }
+
+        /// <summary>
+        /// The EntityDefinition this Attribute belongs to
+        /// </summary>
         public int EntityDefinitionId { get; set; }
 
         public EntityDefinition EntityDefinition { get; set; }
     }
 
-    public class AttributeConfiguration : EntityTypeConfiguration<Attribute>
+    public class AttributeConfiguration : IEntityTypeConfiguration<Attribute>
     {
-        public AttributeConfiguration()
+        public void Configure(EntityTypeBuilder<Attribute> builder)
         {
-            HasKey(t => t.AttributeId);
+            builder.HasKey(t => t.AttributeId);
 
-            Property(g => g.AttributeId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(g => g.Name).HasMaxLength(100);
+            builder.Property(g => g.AttributeId).ValueGeneratedOnAdd();
+            builder.Property(g => g.Name).HasMaxLength(100);
 
-            HasIndex(t => new { t.EntityDefinitionId, t.Name }).IsUnique();
-            
-            HasRequired(o => o.EntityDefinition).WithMany(t => t.Attributes).HasForeignKey(f => f.EntityDefinitionId).WillCascadeOnDelete(false);
+            builder.HasIndex(t => new { t.EntityDefinitionId, t.Name }).IsUnique();
+
+            builder.HasOne(o => o.EntityDefinition).WithMany(t => t.Attributes).HasForeignKey(f => f.EntityDefinitionId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 

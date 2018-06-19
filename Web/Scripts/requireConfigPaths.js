@@ -1,0 +1,5 @@
+﻿require.config({
+    paths: {
+        
+    }
+});
