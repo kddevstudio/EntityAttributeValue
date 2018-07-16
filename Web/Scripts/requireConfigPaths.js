@@ -1,5 +1,0 @@
-﻿require.config({
-    paths: {
-        
-    }
-});
