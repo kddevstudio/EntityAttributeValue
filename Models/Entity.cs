@@ -19,11 +19,11 @@ namespace Models
     {
         public void Configure(EntityTypeBuilder<Entity> builder)
         {
-            builder.HasKey(o => o.EntityId);
+            builder.HasKey(e => e.EntityId);
 
-            builder.Property(o => o.EntityId).ValueGeneratedOnAdd();
+            builder.Property(e => e.EntityId).ValueGeneratedOnAdd();
 
-            builder.HasOne(o => o.EntityDefinition).WithMany().HasForeignKey(o => o.EntityDefinitionId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(e => e.EntityDefinition).WithMany().HasForeignKey(e => e.EntityDefinitionId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 

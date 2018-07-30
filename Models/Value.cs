@@ -36,15 +36,15 @@ namespace Models
 
         public void Configure(EntityTypeBuilder<Value> builder)
         {
-            builder.HasKey(d => d.ValueId);
+            builder.HasKey(v => v.ValueId);
 
-            builder.Property(d => d.ValueId).ValueGeneratedOnAdd();
+            builder.Property(v => v.ValueId).ValueGeneratedOnAdd();
 
-            builder.HasOne(d => d.Attribute).WithMany().HasForeignKey(d => d.AttributeId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(v => v.Attribute).WithMany().HasForeignKey(v => v.AttributeId).OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(d => d.EntityId).IsRequired();
+            builder.Property(v => v.EntityId).IsRequired();
 
-            builder.HasOne(d => d.Entity).WithMany(o => o.Values).HasForeignKey(d => d.EntityId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(v => v.Entity).WithMany(e=> e.Values).HasForeignKey(v => v.EntityId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

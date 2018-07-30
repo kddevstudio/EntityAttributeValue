@@ -23,8 +23,8 @@ namespace Models
     {
         public void Configure(EntityTypeBuilder<EntityDefinition> builder)
         {
-            builder.HasKey(t => t.EntityDefinitionId);
-            builder.Property(g => g.EntityDefinitionId).ValueGeneratedOnAdd();
+            builder.HasKey(ed => ed.EntityDefinitionId);
+            builder.Property(ed => ed.EntityDefinitionId).ValueGeneratedOnAdd();
         }
     }
 }

@@ -34,14 +34,14 @@ namespace Models
     {
         public void Configure(EntityTypeBuilder<Attribute> builder)
         {
-            builder.HasKey(t => t.AttributeId);
+            builder.HasKey(a => a.AttributeId);
 
-            builder.Property(g => g.AttributeId).ValueGeneratedOnAdd();
-            builder.Property(g => g.Name).HasMaxLength(100);
+            builder.Property(a => a.AttributeId).ValueGeneratedOnAdd();
+            builder.Property(a => a.Name).HasMaxLength(100);
 
-            builder.HasIndex(t => new { t.EntityDefinitionId, t.Name }).IsUnique();
+            builder.HasIndex(a => new { a.EntityDefinitionId, a.Name }).IsUnique();
 
-            builder.HasOne(o => o.EntityDefinition).WithMany(t => t.Attributes).HasForeignKey(f => f.EntityDefinitionId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(a => a.EntityDefinition).WithMany(ed => ed.Attributes).HasForeignKey(a => a.EntityDefinitionId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 
