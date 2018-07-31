@@ -13,6 +13,8 @@ namespace Models
         public EntityDefinition EntityDefinition { get; set; }
 
         public List<Value> Values { get; set; }
+
+        public List<Value> LookupEntityValues { get; set; }
     }
 
     public class EntityConfiguration : IEntityTypeConfiguration<Entity>
@@ -24,7 +26,8 @@ namespace Models
             builder.Property(e => e.EntityId).ValueGeneratedOnAdd();
 
             builder.HasOne(e => e.EntityDefinition).WithMany().HasForeignKey(e => e.EntityDefinitionId).OnDelete(DeleteBehavior.Restrict);
+
+
         }
     }
-
 }

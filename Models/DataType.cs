@@ -9,6 +9,7 @@ namespace Models
         Number = 2,
         Integer = 4,
         DateTime = 8,
-        Boolean = 16
+        Boolean = 16,
+        LookupId = 32
     }
 }

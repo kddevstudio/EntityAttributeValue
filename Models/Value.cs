@@ -20,11 +20,15 @@ namespace Models
 
         public DateTime? DateValue { get; set; }
 
-        public bool BoolValue { get; set; }
+        public bool? BoolValue { get; set; }
 
-        public double NumberValue { get; set; }
+        public double? NumberValue { get; set; }
 
-        public int IntValue { get; set; }
+        public int? IntValue { get; set; }
+
+        public int? LookupEntityId { get; set; }
+
+        public Entity LookupEntity { get; set; }
 
     }
 
@@ -45,6 +49,8 @@ namespace Models
             builder.Property(v => v.EntityId).IsRequired();
 
             builder.HasOne(v => v.Entity).WithMany(e=> e.Values).HasForeignKey(v => v.EntityId).OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(v => v.LookupEntity).WithMany(e => e.LookupEntityValues).HasForeignKey(v => v.LookupEntityId).IsRequired(false).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
