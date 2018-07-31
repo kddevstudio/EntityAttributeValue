@@ -46,7 +46,8 @@ namespace Models.Migrations
                         new { AttributeId = 1, DataType = 2, EntityDefinitionId = 1, Name = "GadgetField1" },
                         new { AttributeId = 2, DataType = 8, EntityDefinitionId = 1, Name = "GadgetField2" },
                         new { AttributeId = 3, DataType = 16, EntityDefinitionId = 2, Name = "WidgetField1" },
-                        new { AttributeId = 4, DataType = 4, EntityDefinitionId = 2, Name = "WidgetField2" }
+                        new { AttributeId = 4, DataType = 4, EntityDefinitionId = 2, Name = "WidgetField2" },
+                        new { AttributeId = 5, DataType = 1, EntityDefinitionId = 3, Name = "Name" }
                     );
                 });
 
@@ -63,6 +64,16 @@ namespace Models.Migrations
                     b.HasIndex("EntityDefinitionId");
 
                     b.ToTable("Entities");
+
+                    b.HasData(
+                        new { EntityId = 1, EntityDefinitionId = 3 },
+                        new { EntityId = 2, EntityDefinitionId = 3 },
+                        new { EntityId = 3, EntityDefinitionId = 3 },
+                        new { EntityId = 4, EntityDefinitionId = 3 },
+                        new { EntityId = 5, EntityDefinitionId = 3 },
+                        new { EntityId = 6, EntityDefinitionId = 3 },
+                        new { EntityId = 7, EntityDefinitionId = 3 }
+                    );
                 });
 
             modelBuilder.Entity("Models.EntityDefinition", b =>
@@ -80,7 +91,8 @@ namespace Models.Migrations
 
                     b.HasData(
                         new { EntityDefinitionId = 1, Name = "Gadget" },
-                        new { EntityDefinitionId = 2, Name = "Widget" }
+                        new { EntityDefinitionId = 2, Name = "Widget" },
+                        new { EntityDefinitionId = 3, Name = "Weekdays" }
                     );
                 });
 
@@ -115,6 +127,16 @@ namespace Models.Migrations
                     b.HasIndex("LookupEntityId");
 
                     b.ToTable("Values");
+
+                    b.HasData(
+                        new { ValueId = 1, AttributeId = 5, EntityId = 1, StringValue = "Monday" },
+                        new { ValueId = 2, AttributeId = 5, EntityId = 2, StringValue = "Tuesday" },
+                        new { ValueId = 3, AttributeId = 5, EntityId = 3, StringValue = "Wednesday" },
+                        new { ValueId = 4, AttributeId = 5, EntityId = 4, StringValue = "Thursday" },
+                        new { ValueId = 5, AttributeId = 5, EntityId = 5, StringValue = "Friday" },
+                        new { ValueId = 6, AttributeId = 5, EntityId = 6, StringValue = "Saturday" },
+                        new { ValueId = 7, AttributeId = 5, EntityId = 7, StringValue = "Sunday" }
+                    );
                 });
 
             modelBuilder.Entity("Models.Attribute", b =>
