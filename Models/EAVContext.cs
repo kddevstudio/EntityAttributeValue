@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Models
 {
@@ -30,7 +31,23 @@ namespace Models
                 new Attribute() { AttributeId = 2, EntityDefinitionId = 1, Name = "GadgetField2", DataType = DataType.DateTime },
                 new Attribute() { AttributeId = 3, EntityDefinitionId = 2, Name = "WidgetField1", DataType = DataType.Boolean },
                 new Attribute() { AttributeId = 4, EntityDefinitionId = 2, Name = "WidgetField2", DataType = DataType.Integer },
-                new Attribute() { AttributeId = 5, EntityDefinitionId = 3, Name = "Name", DataType = DataType.String }
+                new Attribute() { AttributeId = 5, EntityDefinitionId = 3, Name = "Name", DataType = DataType.String },
+                new Attribute()
+                {
+                    AttributeId = 6,
+                    EntityDefinitionId = 1,
+                    Name = "Gadget Weekday",
+                    DataType = DataType.LookupId,
+                    LookupEntityDefinitionId = 3
+                },
+                new Attribute()
+                {
+                    AttributeId = 7,
+                    EntityDefinitionId = 2,
+                    Name = "Widget Weekday",
+                    DataType = DataType.LookupId,
+                    LookupEntityDefinitionId = 3
+                }
             );
 
             var mondayEntity = new Entity() { EntityId = 1, EntityDefinitionId = 3};
@@ -68,8 +85,50 @@ namespace Models
                 saturdayNameValue,
                 sundayNameValue
                 );
-        }
 
+            // add gadgets
+            modelBuilder.Entity<Entity>().HasData(
+                new Entity() { EntityId = 8, EntityDefinitionId = 1 },
+                new Entity() { EntityId = 9, EntityDefinitionId = 1 },
+                new Entity() { EntityId = 10, EntityDefinitionId = 1 },
+                new Entity() { EntityId = 11, EntityDefinitionId = 1 }
+                );
+
+            modelBuilder.Entity<Value>().HasData(
+                new Value() { ValueId = 8, EntityId = 8, AttributeId = 1, NumberValue = 10d},
+                new Value() { ValueId = 9, EntityId = 8, AttributeId = 2, DateValue = new DateTime() },
+                new Value() { ValueId = 10, EntityId = 8, AttributeId = 6, LookupEntityId = 1 },
+                new Value() { ValueId = 11, EntityId = 9, AttributeId = 1, NumberValue = 20d },
+                new Value() { ValueId = 12, EntityId = 9, AttributeId = 2, DateValue = new DateTime().AddDays(7) },
+                new Value() { ValueId = 13, EntityId = 9, AttributeId = 6, LookupEntityId = 3 },
+                new Value() { ValueId = 14, EntityId = 10, AttributeId = 1, NumberValue = 30d },
+                new Value() { ValueId = 15, EntityId = 10, AttributeId = 2, DateValue = new DateTime().AddDays(14) },
+                new Value() { ValueId = 16, EntityId = 10, AttributeId = 6, LookupEntityId = 5 },
+                new Value() { ValueId = 17, EntityId = 11, AttributeId = 1, NumberValue = 40d },
+                new Value() { ValueId = 18, EntityId = 11, AttributeId = 2, DateValue = new DateTime().AddDays(21) },
+                new Value() { ValueId = 19, EntityId = 11, AttributeId = 6, LookupEntityId = 7 }
+                );
+            
+            // add widgets
+            modelBuilder.Entity<Entity>().HasData(
+                new Entity() { EntityId = 12, EntityDefinitionId = 2 },
+                new Entity() { EntityId = 13, EntityDefinitionId = 2 },
+                new Entity() { EntityId = 14, EntityDefinitionId = 2 }
+                );
+
+            modelBuilder.Entity<Value>().HasData(
+                new Value() { ValueId = 20, EntityId = 12, AttributeId = 3, BoolValue = true },
+                new Value() { ValueId = 21, EntityId = 12, AttributeId = 4, IntValue = 10 },
+                new Value() { ValueId = 22, EntityId = 12, AttributeId = 7, LookupEntityId = 2 },
+                new Value() { ValueId = 23, EntityId = 13, AttributeId = 3, BoolValue = false },
+                new Value() { ValueId = 24, EntityId = 13, AttributeId = 4, IntValue = 20 },
+                new Value() { ValueId = 25, EntityId = 13, AttributeId = 7, LookupEntityId = 4 },
+                new Value() { ValueId = 26, EntityId = 14, AttributeId = 3, BoolValue = true },
+                new Value() { ValueId = 27, EntityId = 14, AttributeId = 4, IntValue = 30 },
+                new Value() { ValueId = 28, EntityId = 14, AttributeId = 7, LookupEntityId = 6 }
+                );            
+        }                     
+                              
         public DbSet<Entity> Entities { get; set; }
         public DbSet<Value> Values { get; set; }
         public DbSet<Attribute> Attributes { get; set; }

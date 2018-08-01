@@ -10,7 +10,7 @@ using Models;
 namespace Models.Migrations
 {
     [DbContext(typeof(EAVContext))]
-    [Migration("20180731173858_Lookup")]
+    [Migration("20180801195647_Lookup")]
     partial class Lookup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +49,9 @@ namespace Models.Migrations
                         new { AttributeId = 2, DataType = 8, EntityDefinitionId = 1, Name = "GadgetField2" },
                         new { AttributeId = 3, DataType = 16, EntityDefinitionId = 2, Name = "WidgetField1" },
                         new { AttributeId = 4, DataType = 4, EntityDefinitionId = 2, Name = "WidgetField2" },
-                        new { AttributeId = 5, DataType = 1, EntityDefinitionId = 3, Name = "Name" }
+                        new { AttributeId = 5, DataType = 1, EntityDefinitionId = 3, Name = "Name" },
+                        new { AttributeId = 6, DataType = 32, EntityDefinitionId = 1, LookupEntityDefinitionId = 3, Name = "Gadget Weekday" },
+                        new { AttributeId = 7, DataType = 32, EntityDefinitionId = 2, LookupEntityDefinitionId = 3, Name = "Widget Weekday" }
                     );
                 });
 
@@ -74,7 +76,14 @@ namespace Models.Migrations
                         new { EntityId = 4, EntityDefinitionId = 3 },
                         new { EntityId = 5, EntityDefinitionId = 3 },
                         new { EntityId = 6, EntityDefinitionId = 3 },
-                        new { EntityId = 7, EntityDefinitionId = 3 }
+                        new { EntityId = 7, EntityDefinitionId = 3 },
+                        new { EntityId = 8, EntityDefinitionId = 1 },
+                        new { EntityId = 9, EntityDefinitionId = 1 },
+                        new { EntityId = 10, EntityDefinitionId = 1 },
+                        new { EntityId = 11, EntityDefinitionId = 1 },
+                        new { EntityId = 12, EntityDefinitionId = 2 },
+                        new { EntityId = 13, EntityDefinitionId = 2 },
+                        new { EntityId = 14, EntityDefinitionId = 2 }
                     );
                 });
 
@@ -137,7 +146,28 @@ namespace Models.Migrations
                         new { ValueId = 4, AttributeId = 5, EntityId = 4, StringValue = "Thursday" },
                         new { ValueId = 5, AttributeId = 5, EntityId = 5, StringValue = "Friday" },
                         new { ValueId = 6, AttributeId = 5, EntityId = 6, StringValue = "Saturday" },
-                        new { ValueId = 7, AttributeId = 5, EntityId = 7, StringValue = "Sunday" }
+                        new { ValueId = 7, AttributeId = 5, EntityId = 7, StringValue = "Sunday" },
+                        new { ValueId = 8, AttributeId = 1, EntityId = 8, NumberValue = 10.0 },
+                        new { ValueId = 9, AttributeId = 2, DateValue = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), EntityId = 8 },
+                        new { ValueId = 10, AttributeId = 6, EntityId = 8, LookupEntityId = 1 },
+                        new { ValueId = 11, AttributeId = 1, EntityId = 9, NumberValue = 20.0 },
+                        new { ValueId = 12, AttributeId = 2, DateValue = new DateTime(1, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), EntityId = 9 },
+                        new { ValueId = 13, AttributeId = 6, EntityId = 9, LookupEntityId = 3 },
+                        new { ValueId = 14, AttributeId = 1, EntityId = 10, NumberValue = 30.0 },
+                        new { ValueId = 15, AttributeId = 2, DateValue = new DateTime(1, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), EntityId = 10 },
+                        new { ValueId = 16, AttributeId = 6, EntityId = 10, LookupEntityId = 5 },
+                        new { ValueId = 17, AttributeId = 1, EntityId = 11, NumberValue = 40.0 },
+                        new { ValueId = 18, AttributeId = 2, DateValue = new DateTime(1, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), EntityId = 11 },
+                        new { ValueId = 19, AttributeId = 6, EntityId = 11, LookupEntityId = 7 },
+                        new { ValueId = 20, AttributeId = 3, BoolValue = true, EntityId = 12 },
+                        new { ValueId = 21, AttributeId = 4, EntityId = 12, IntValue = 10 },
+                        new { ValueId = 22, AttributeId = 7, EntityId = 12, LookupEntityId = 2 },
+                        new { ValueId = 23, AttributeId = 3, BoolValue = false, EntityId = 13 },
+                        new { ValueId = 24, AttributeId = 4, EntityId = 13, IntValue = 20 },
+                        new { ValueId = 25, AttributeId = 7, EntityId = 13, LookupEntityId = 4 },
+                        new { ValueId = 26, AttributeId = 3, BoolValue = true, EntityId = 14 },
+                        new { ValueId = 27, AttributeId = 4, EntityId = 14, IntValue = 30 },
+                        new { ValueId = 28, AttributeId = 7, EntityId = 14, LookupEntityId = 6 }
                     );
                 });
 
